@@ -14,7 +14,7 @@ def parse_args():
     )
     p.add_argument("-i","--input-dir", required=True,
                    help="Folder of input images (png/jpg/etc.)")
-    p.add_argument("-o","--output-dir", default="labeled_dataset",
+    p.add_argument("-o","--output-dir", default="labeled_synthetic_dataset",
                    help="Root output dir (will contain `images/` + `annotations.json`)")
     p.add_argument("--box-threshold",  type=float, default=0.25)
     p.add_argument("--text-threshold", type=float, default=0.3)
