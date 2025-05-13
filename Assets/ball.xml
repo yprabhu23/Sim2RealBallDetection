@@ -11,11 +11,11 @@
             <joint type="free" name="ball_joint"/>
             <geom type="sphere" size="0.05" rgba="1 0 0 1"/>
         </body>
-        <camera
+        <!-- <camera
 		  	name="cam"
 		  	pos="1 1 1"
 			mode="targetbody"
 			target="ball"
-		/>
+		/> -->
     </worldbody>
 </mujoco>

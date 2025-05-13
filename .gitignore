@@ -2,3 +2,9 @@ Images
 Sim_Images
 mp4_output
 labeled_dataset
+labeled_synthetic_dataset
+mujoco_data_all
+mp4_output
+mujoco_data
+real_dataset
+Sim_Images

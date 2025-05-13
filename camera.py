@@ -64,26 +64,26 @@ def set_global_camera_xml(
 
     # Randomize global cameras around their corresponding real world positions
     #Instead of randoming global camera, fix the quat and the position. Or, set the camera poses in world frame to be none
-    if camera_poses_in_world_frame is not None:
-        for key, Twc in camera_poses_in_world_frame.items():
-            body_name = f"{key}"
-            body = etree.SubElement(worldbody, "body", name=body_name)
-            body.set("pos", " ".join(map(str, Twc[:3, 3])))
-            mj_correction = np.array([[1, 0, 0], [0, -1, 0], [0, 0, -1]])
-            quat = Rotation.from_matrix(Twc[:3, :3] @ mj_correction).as_quat(scalar_first=True)
-            body.set("quat", " ".join(map(str, quat)))
+    # if camera_poses_in_world_frame is not None:
+    #     for key, Twc in camera_poses_in_world_frame.items():
+    #         body_name = f"{key}"
+    #         body = etree.SubElement(worldbody, "body", name=body_name)
+    #         body.set("pos", " ".join(map(str, Twc[:3, 3])))
+    #         mj_correction = np.array([[1, 0, 0], [0, -1, 0], [0, 0, -1]])
+    #         quat = Rotation.from_matrix(Twc[:3, :3] @ mj_correction).as_quat(scalar_first=True)
+    #         body.set("quat", " ".join(map(str, quat)))
 
-            etree.SubElement(body, "camera", name=key, fovy="45", mode="fixed")
-    # Alternatively, initialize default cameras
-    else:
-        body_name = "global_0"
-        body = etree.SubElement(worldbody, "body", name=body_name)
-        body.set("pos", "-0.094 -0.292 0.698") #Position in WC of camera. We want to set this up somewhere
-        body.set(
-            "quat",
-            "0.93521172660947172 0.35369745673769204 0.0097647345133944699 0.013482784182144731",
-        ) # set it looking down 
-        etree.SubElement(body, "camera", name="global_0", fovy="45", mode="fixed")
+    #         etree.SubElement(body, "camera", name=key, fovy="45", mode="fixed")
+    # # Alternatively, initialize default cameras
+    # else:
+    body_name = "global_0"
+    body = etree.SubElement(worldbody, "body", name=body_name)
+    body.set("pos", "0 0 1") #Position in WC of camera. We want to set this up somewhere
+    body.set(
+        "quat",
+        "0.93521172660947172 0.35369745673769204 0.0097647345133944699 0.013482784182144731",
+    ) # set it looking down 
+    etree.SubElement(body, "camera", name="global_0", fovy="45", mode="fixed")
         # Can comment out the below code because it don't matter
         
     # Convert back to MuJoCo model
@@ -349,8 +349,8 @@ def main():
     image = np.zeros((480, 640, 3), dtype=np.uint8)
     
     # Define camera parameters
-    fx, fy = 500, 500  # Focal lengths
-    cx, cy = 320, 240  # Principal point
+    fx, fy = 379.004150390625, 378.7071228027344  # Focal lengths
+    cx, cy = 313.1700439453125, 353.9  # Principal point
     
     # Camera intrinsic matrix
     camera_matrix = np.array([
@@ -375,6 +375,3 @@ def main():
     cv2.imshow('Image with Ball Center', result)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-
-if __name__ == "__main__":
-    main()

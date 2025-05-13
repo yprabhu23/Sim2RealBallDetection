@@ -1,0 +1,63 @@
+<mujoco model="unnamed_model">
+  <compiler angle="radian"/>
+  <!-- <option gravity="0 0 0"/> -->
+
+  <!-- Example of optional settings, commented out
+  <option impratio="10000" o_solref="1e-10 1" o_solimp="0.01 1 0.001 0.5 2" integrator="implicitfast">
+    <flag override="enable"/>
+  </option>
+
+  <size memory="1000M" nkey="1"/>
+  -->
+
+  <visual>
+    <global azimuth="0" elevation="-20" offheight="640" fovy="75"/>
+  </visual>
+
+  <statistic meansize="0.08"/>
+
+  <default>
+    <default class="/"/>
+  </default>
+
+  <asset>
+    <texture type="2d" name="grid" builtin="checker" mark="cross"
+             rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" width="256" height="256"/>
+    <material name="grid" texture="grid" specular="0.3" shininess="0.5" reflectance="0.2"/>
+
+    <!-- Load the diffuse texture from the mtl file -->
+  <texture name="tex_diffuse" type="2d" file="./Assets/Baseball_Mesh/textures/e459ae40f53e22d12b4b1f5cc531e335.png"/>
+  
+  <!-- Define a material that uses that texture -->
+  <material name="my_material" texture="tex_diffuse" specular="0.3" shininess="0.5" reflectance="0.2"/>
+
+  <!-- Load the mesh from the .obj -->
+  <mesh name="my_mesh" file="./Assets/Baseball_Mesh/5_12_2025.obj"/>
+
+  </asset>
+
+  <asset>
+  
+</asset>
+
+  <worldbody>
+    <!-- <geom name="floor" class="/" size="2 2 0.01" type="plane" material="grid"/> -->
+    <light name="unnamed_light_0" class="/" pos="0 0 1.5" dir="0 0 -1" directional="true"/>
+    
+    <!-- <body name="global_0" pos="0 0 4" quat="0.7071 0 0 0.7071" fovy="72.3"> -->
+      <camera name="realsense" pos="0 0 10" quat="0.7071 0 0 0.7071" fovy="72.3"/>
+    <!-- </body> -->
+
+    <!-- <body name="ball" pos="0 0 1">
+            <joint type="free" name="ball_joint"/>
+            <geom type="sphere" size="0.05" rgba="1 0 0 1"/>
+        </body> -->
+
+      
+
+<body name="textured_object" pos="0 0 10" > <!-- 0 0 2 quat = "0.7071 0 0 0.7071" -->
+  <joint type="free" name="baseball_joint"/>
+  <geom type="mesh" mesh="my_mesh" material="my_material" />
+</body>
+  </worldbody>
+</mujoco>

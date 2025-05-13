@@ -88,6 +88,10 @@ class MujocoBallEnvironment:
         # Create renderer
         with mujoco.Renderer(self.model) as renderer:
             images = []
+            for g in renderer.scene.geoms:
+                if g.name == "ball_geom":
+                    print("Ball segmentation ID:", g.segid)
+                    break
 
             # Simulate and render a few frames
             for i in range(30):  # simulate 30 timesteps
